@@ -27,7 +27,7 @@ async function publishEvent(routingKey, message) {
   channel.publish(
     EXCHANGE_NAME,
     routingKey,
-    Buffer.from(JSON.stringify(message))
+    Buffer.from(JSON.stringify(meidentityssage))
   );
   logger.info(`Event published: ${routingKey}`);
 }

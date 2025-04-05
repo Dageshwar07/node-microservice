@@ -30,7 +30,7 @@ const logger = winston.createLogger({
     winston.format.splat(),
     winston.format.json()
   ),
-  defaultMeta: { service: "identity-service" },
+  defaultMeta: { service: "search-service" },
   transports: [
     // Console with custom formatting and colors
     new winston.transports.Console({
