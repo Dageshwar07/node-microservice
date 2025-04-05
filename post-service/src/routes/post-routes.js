@@ -7,9 +7,9 @@ const {
 } = require("../controllers/post-controller");
 const { authenticateRequest } = require("../middleware/authMiddleware");
 
-const router = express();
+const router = express.Router(); // ✅ Corrected this line
 
-//middleware -> this will tell if the user is an auth user or not
+// middleware to ensure all routes are protected
 router.use(authenticateRequest);
 
 router.post("/create-post", createPost);

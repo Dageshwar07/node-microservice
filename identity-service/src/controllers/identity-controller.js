@@ -30,7 +30,7 @@ const resgiterUser = async (req, res) => {
 
     user = new User({ username, email, password });
     await user.save();
-    logger.warn("User saved successfully", user._id);
+    logger.success("User saved successfully", user._id);
 
     const { accessToken, refreshToken } = await generateTokens(user);
 

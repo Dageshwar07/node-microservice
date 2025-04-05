@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
-
   "scripts": {
     "start": "concurrently \"npm run dev:gateway\" \"npm run dev:identity\" \"npm run dev:media\" \"npm run dev:post\" \"npm run dev:search\"",
-    "dev:gateway": "cd ../api-gateway && nodemon index.js",
-    "dev:identity": "cd ../identity-service && nodemon index.js",
-    "dev:media": "cd ../media-service && nodemon index.js",
-    "dev:post": "cd ../post-service && nodemon index.js",
-    "dev:search": "cd ../search-service && nodemon index.js"
+    "dev:gateway": "cd ../api-gateway && nodemon server.js",
+    "dev:identity": "cd ../identity-service && nodemon server.js",
+    "dev:media": "cd ../media-service && nodemon server.js",
+    "dev:post": "cd ../post-service && nodemon server.js",
+    "dev:search": "cd ../search-service && nodemon server.js"
   },
   "keywords": [],
   "author": "",
