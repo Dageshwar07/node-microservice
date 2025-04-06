@@ -1,70 +1,129 @@
 version: '3.8'
 
 services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - microservices-net
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6380:6379"
+    networks:
+      - microservices-net
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    networks:
+      - microservices-net
+
   api-gateway:
     build: ./api-gateway
+    container_name: api-gateway
     ports:
       - "3000:3000"
     env_file: ./api-gateway/.env
     depends_on:
       - redis
       - rabbitmq
+      - mongo
+      - identity-service
+      - post-service
+      - media-service
+      - search-service
     environment:
+      - MONGODB_URI=mongodb://mongo:27017/microservices
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+      - IDENTITY_SERVICE_URL=http://identity-service:3001
+      - POST_SERVICE_URL=http://post-service:3002
+      - MEDIA_SERVICE_URL=http://media-service:3003
+      - SEARCH_SERVICE_URL=http://search-service:3004
+
+    networks:
+      - microservices-net
 
   identity-service:
     build: ./identity-service
+    container_name: identity-service
+    ports:
+      - "3001:3001"
     env_file: ./identity-service/.env
     depends_on:
+      - mongo
       - redis
-      - rabbitmq
     environment:
+      - MONGODB_URI=mongodb://mongo:27017/microservices
       - REDIS_URL=redis://redis:6379
-      - RABBITMQ_URL=amqp://rabbitmq:5672
+    networks:
+      - microservices-net
 
   post-service:
     build: ./post-service
+    container_name: post-service
+    ports:
+      - "3002:3002"
     env_file: ./post-service/.env
     depends_on:
+      - mongo
       - redis
+
       - rabbitmq
     environment:
+      - MONGODB_URI=mongodb://mongo:27017/microservices
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+    networks:
+      - microservices-net
 
   media-service:
     build: ./media-service
+    container_name: media-service
+    ports:
+      - "3003:3003"
     env_file: ./media-service/.env
     depends_on:
-      - redis
+      - mongo
       - rabbitmq
+      - redis
     environment:
+      - MONGODB_URI=mongodb://mongo:27017/microservices
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+    networks:
+      - microservices-net
 
   search-service:
     build: ./search-service
+    container_name: search-service
+    ports:
+      - "3004:3004"
     env_file: ./search-service/.env
     depends_on:
+      - mongo
       - redis
       - rabbitmq
     environment:
+      - MONGODB_URI=mongodb://mongo:27017/microservices
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+    networks:
+      - microservices-net
 
-  redis:
-    image: redis:alpine
-    ports:
-      - "6380:6379"
+volumes:
+  mongo_data:
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - "5673:5672"
-      - "15673:15672"
-    healthcheck:
-      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+networks:
+  microservices-net:
+    driver: bridge
