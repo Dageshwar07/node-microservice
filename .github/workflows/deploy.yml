@@ -93,10 +93,12 @@ jobs:
             docker compose pull
             docker compose down
 
-            echo "Running once in foreground to capture startup errors..."
-            docker compose up --abort-on-container-exit
-
-            echo "If no errors, running again in detached mode..."
-            docker compose up -d --remove-orphans
-
+            echo "Running once in foreground to check for issues..."
+            if docker compose up --abort-on-container-exit; then
+              echo "Starting in detached mode..."
+              docker compose up -d --remove-orphans
+            else
+              echo "❌ Startup failed. Not running in detached mode."
+              exit 1
+            fi
 
