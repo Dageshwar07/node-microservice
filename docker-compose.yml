@@ -97,9 +97,9 @@ services:
       - MONGODB_URI=${MONGODB_URI}
       - REDIS_URL=${REDIS_URL}
       - RABBITMQ_URL=${RABBITMQ_URL}
-      - cloud_name=${cloud_name}
-      - api_key=${api_key}
-      - api_secret=${api_secret}
+      - CLOUD_NAME=${CLOUD_NAME}
+      - API_KEY=${API_KEY}
+      - API_SECRET=${API_SECRET}
     networks:
       - microservices-net
 
