@@ -59,6 +59,7 @@ jobs:
             POST_SERVICE_URL
             MEDIA_SERVICE_URL
             SEARCH_SERVICE_URL
+            JWT_SECRET
           script: |
             # Install Docker and Docker Compose if not installed
             if ! command -v docker &> /dev/null; then
@@ -81,7 +82,11 @@ jobs:
             echo "POST_SERVICE_URL=${{ secrets.POST_SERVICE_URL }}" >> .env
             echo "MEDIA_SERVICE_URL=${{ secrets.MEDIA_SERVICE_URL }}" >> .env
             echo "SEARCH_SERVICE_URL=${{ secrets.SEARCH_SERVICE_URL }}" >> .env
+            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
 
             docker compose pull
             docker compose down
             docker compose up -d --remove-orphans
+
+
+

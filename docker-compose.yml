@@ -49,6 +49,7 @@ services:
       - POST_SERVICE_URL=${POST_SERVICE_URL}
       - MEDIA_SERVICE_URL=${MEDIA_SERVICE_URL}
       - SEARCH_SERVICE_URL=${SEARCH_SERVICE_URL}
+      - JWT_SECRET=${JWT_SECRET}
     networks:
       - microservices-net
 
@@ -62,6 +63,7 @@ services:
       - redis
     environment:
       - MONGODB_URI=${MONGODB_URI}
+      - JWT_SECRET=${JWT_SECRET}
       - REDIS_URL=${REDIS_URL}
     networks:
       - microservices-net
