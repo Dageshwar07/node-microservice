@@ -1,5 +1,13 @@
-node_modules
+# Node.js dependencies
+node_modules/
+
+# Logs
 *.log
-*.env
+
+# Environment variables
+.env
+.env.*  # ignore all env files like .env.production, .env.development etc.
+
+# Docker and deploy files
 docker-compose copy.yml
 deploy copy.yml
