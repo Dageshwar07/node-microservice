@@ -18,6 +18,9 @@ const redisClient = new Redis(process.env.REDIS_URL);
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use("/",req,res,()=>{
+res.send("microservice is running")
+})
 
 //rate limiting
 const ratelimitOptions = rateLimit({
