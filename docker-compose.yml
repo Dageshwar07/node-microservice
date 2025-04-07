@@ -97,7 +97,7 @@ services:
       - MONGODB_URI=${MONGODB_URI}
       - REDIS_URL=${REDIS_URL}
       - RABBITMQ_URL=${RABBITMQ_URL}
-      - CLOUD_NAME=${CLOUD_NARABBITMQ_URL=amqp://localhost:5672E}
+      - CLOUD_NAME=${CLOUD_NAME}
       - API_KEY=${API_KEY}
       - API_SECRET=${API_SECRET}
     networks:
