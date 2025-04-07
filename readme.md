@@ -8,3 +8,5 @@ POST_SERVICE_URL="http://post-service:3002" \
 MEDIA_SERVICE_URL="http://media-service:3003" \
 SEARCH_SERVICE_URL="http://search-service:3004" \
 docker-compose up -d --build
+
+ekdum jhakkash!!!
