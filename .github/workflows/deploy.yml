@@ -59,12 +59,12 @@ jobs:
             POST_SERVICE_URL
             MEDIA_SERVICE_URL
             SEARCH_SERVICE_URL
-        script: |
+          script: |
             cd /home/ubuntu
             rm -rf node-microservice
             git clone https://github.com/dageshwar07/node-microservice.git
             cd node-microservice
-            
+
             echo "Setting environment variables..."
             echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env
             echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env
