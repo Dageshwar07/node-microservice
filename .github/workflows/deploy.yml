@@ -92,7 +92,11 @@ jobs:
 
             docker compose pull
             docker compose down
-            docker compose up -d --remove-orphans
 
+            echo "Running once in foreground to capture startup errors..."
+            docker compose up --abort-on-container-exit
+
+            echo "If no errors, running again in detached mode..."
+            docker compose up -d --remove-orphans
 
 
