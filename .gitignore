@@ -1,5 +1,5 @@
 node_modules
 *.log
-.env
+*.env
 docker-compose copy.yml
 deploy copy.yml
