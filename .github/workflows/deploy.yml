@@ -51,9 +51,31 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: |
+            MONGODB_URI
+            REDIS_URL
+            RABBITMQ_URL
+            IDENTITY_SERVICE_URL
+            POST_SERVICE_URL
+            MEDIA_SERVICE_URL
+            SEARCH_SERVICE_URL
           script: |
             cd /home/ubuntu/node-microservice
             git pull origin master
+
+            # Export env vars from GitHub Secrets
+            export MONGODB_URI="${{ secrets.MONGODB_URI }}"
+            export REDIS_URL="${{ secrets.REDIS_URL }}"
+            export RABBITMQ_URL="${{ secrets.RABBITMQ_URL }}"
+            export IDENTITY_SERVICE_URL="${{ secrets.IDENTITY_SERVICE_URL }}"
+            export POST_SERVICE_URL="${{ secrets.POST_SERVICE_URL }}"
+            export MEDIA_SERVICE_URL="${{ secrets.MEDIA_SERVICE_URL }}"
+            export SEARCH_SERVICE_URL="${{ secrets.SEARCH_SERVICE_URL }}"
+
+            # Optional: verify env vars
+            echo "MONGODB_URI=$MONGODB_URI"
+            echo "POST_SERVICE_URL=$POST_SERVICE_URL"
+
             docker compose pull
             docker compose down
             docker compose up -d --remove-orphans
