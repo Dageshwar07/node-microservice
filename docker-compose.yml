@@ -33,7 +33,6 @@ services:
     container_name: api-gateway
     ports:
       - "3000:3000"
-    env_file: ./api-gateway/.env
     depends_on:
       - redis
       - rabbitmq
@@ -43,14 +42,13 @@ services:
       - media-service
       - search-service
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/microservices
-      - REDIS_URL=redis://redis:6379
-      - RABBITMQ_URL=amqp://rabbitmq:5672
-      - IDENTITY_SERVICE_URL=http://identity-service:3001
-      - POST_SERVICE_URL=http://post-service:3002
-      - MEDIA_SERVICE_URL=http://media-service:3003
-      - SEARCH_SERVICE_URL=http://search-service:3004
-
+      - MONGODB_URI=${MONGODB_URI}
+      - REDIS_URL=${REDIS_URL}
+      - RABBITMQ_URL=${RABBITMQ_URL}
+      - IDENTITY_SERVICE_URL=${IDENTITY_SERVICE_URL}
+      - POST_SERVICE_URL=${POST_SERVICE_URL}
+      - MEDIA_SERVICE_URL=${MEDIA_SERVICE_URL}
+      - SEARCH_SERVICE_URL=${SEARCH_SERVICE_URL}
     networks:
       - microservices-net
 
@@ -59,13 +57,12 @@ services:
     container_name: identity-service
     ports:
       - "3001:3001"
-    env_file: ./identity-service/.env
     depends_on:
       - mongo
       - redis
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/microservices
-      - REDIS_URL=redis://redis:6379
+      - MONGODB_URI=${MONGODB_URI}
+      - REDIS_URL=${REDIS_URL}
     networks:
       - microservices-net
 
@@ -74,16 +71,14 @@ services:
     container_name: post-service
     ports:
       - "3002:3002"
-    env_file: ./post-service/.env
     depends_on:
       - mongo
       - redis
-
       - rabbitmq
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/microservices
-      - REDIS_URL=redis://redis:6379
-      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - MONGODB_URI=${MONGODB_URI}
+      - REDIS_URL=${REDIS_URL}
+      - RABBITMQ_URL=${RABBITMQ_URL}
     networks:
       - microservices-net
 
@@ -92,15 +87,14 @@ services:
     container_name: media-service
     ports:
       - "3003:3003"
-    env_file: ./media-service/.env
     depends_on:
       - mongo
       - rabbitmq
       - redis
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/microservices
-      - REDIS_URL=redis://redis:6379
-      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - MONGODB_URI=${MONGODB_URI}
+      - REDIS_URL=${REDIS_URL}
+      - RABBITMQ_URL=${RABBITMQ_URL}
     networks:
       - microservices-net
 
@@ -109,15 +103,14 @@ services:
     container_name: search-service
     ports:
       - "3004:3004"
-    env_file: ./search-service/.env
     depends_on:
       - mongo
       - redis
       - rabbitmq
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/microservices
-      - REDIS_URL=redis://redis:6379
-      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - MONGODB_URI=${MONGODB_URI}
+      - REDIS_URL=${REDIS_URL}
+      - RABBITMQ_URL=${RABBITMQ_URL}
     networks:
       - microservices-net
 
