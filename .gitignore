@@ -1,14 +1,18 @@
-# Node.js dependencies
-node_modules/
+# Global node modules
+**/node_modules/
 
-# Logs
-*.log
+# Log files
+**/*.log
 
-# Environment variables
-.env
-.env.*  # ignore all env files like .env.production, .env.development etc.
-*.env.*  # ignore all env files like .env.production, .env.development etc.
+# Env files (from all services)
+**/.env
+**/.env.*
 
-# Docker and deploy files
+# Docker and deploy copies
 docker-compose copy.yml
 deploy copy.yml
+
+# Optional: VSCode settings and OS files
+.vscode/
+.DS_Store
+Thumbs.db
