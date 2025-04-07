@@ -7,6 +7,7 @@ node_modules/
 # Environment variables
 .env
 .env.*  # ignore all env files like .env.production, .env.development etc.
+*.env.*  # ignore all env files like .env.production, .env.development etc.
 
 # Docker and deploy files
 docker-compose copy.yml
