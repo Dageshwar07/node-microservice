@@ -18,9 +18,10 @@ const redisClient = new Redis(process.env.REDIS_URL);
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use("/",req,res,()=>{
-res.send("microservice is running")
-})
+// Test route
+app.get('/test', (req, res) => {
+  res.status(200).json({ message: 'Test route is working!' });
+});
 
 //rate limiting
 const ratelimitOptions = rateLimit({
